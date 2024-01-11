@@ -36,4 +36,14 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}     #pr-xx
           labels: ${{ steps.meta.outputs.labels }}
-          #end
+          
+  update-kubernetes-manifest:
+    runs-on: ubuntu-leatest
+    needs: [build-and-push-image]
+    steps:
+      - name: Ckeckout repoository
+        uses: actions/checkout@v4
+
+      - name: Update fastapi-sample image
+        run: |
+          yq
